@@ -35,5 +35,7 @@ var embed = (function() {
     object.appendChild(param('flashvars', flashvars(options)));
 
     el.parentNode.replaceChild(object, el);
+
+    return object;
   };
 }());
