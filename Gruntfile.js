@@ -62,11 +62,11 @@ module.exports = function(grunt) {
         options: {
           beautify: false,
           scripts: {
-            main: '<%= temp %>/js/main.min.js',
-            ie: '<%= temp %>/js/html5-video-shim.min.js'
+            "main": '<%= temp %>/js/main.min.js',
+            "html5-video-shim": '<%= temp %>/js/html5-video-shim.min.js'
           },
           styles: {
-            main: '<%= temp %>/css/main.min.css'
+            "main": '<%= temp %>/css/main.min.css'
           }
         }
       }
