@@ -24,7 +24,16 @@
 ## Flash
 * Replaced [videojs](http://www.videojs.com/)'s flash implementation with [divine-player](https://github.com/cameronhunter/divine-player) (videojs was too feature-rich)
 
+# Network Waterfalls
+
+## Current Vine card implementation
+![Current Vine card implementation](https://dl.dropboxusercontent.com/u/161487/divine-card/vine-waterfall.png)
+
+## Divine card implementation
+![Divine card implementation](https://dl.dropboxusercontent.com/u/161487/divine-card/divine-waterfall.png)
+
 # TODO
+
 * Add more sources to the video tag to increase browser support without falling back to flash (webm would be a great start)
 * Add more codec info to the sources tag, it helps the browser check compatibility
 * Is the poster image necessary?
