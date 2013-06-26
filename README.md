@@ -27,11 +27,15 @@
 # Network Waterfalls
 
 ## Current Vine card implementation
-`15 requests | 1.3MB transferred | 7.57s (onload: 7.57s, DOMContentLoaded: 2.91s)`
+```
+15 requests | 1.3MB transferred | 7.57s (onload: 7.57s, DOMContentLoaded: 2.91s)
+```
 ![Current Vine card implementation](https://dl.dropboxusercontent.com/u/161487/divine-card/vine-waterfall.png)
 
 ## Divine card implementation
-`6 requests | 909KB transferred | 2.85s (onload: 2.85s, DOMContentLoaded: 601ms)`
+```
+6 requests | 909KB transferred | 2.85s (onload: 2.85s, DOMContentLoaded: 601ms)
+```
 ![Divine card implementation](https://dl.dropboxusercontent.com/u/161487/divine-card/divine-waterfall.png)
 
 # TODO
