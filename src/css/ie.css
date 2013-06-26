@@ -1,0 +1,8 @@
+#audio {
+  background-position: -40px 0;
+  background-image: url("/img/volume.png");
+}
+
+#audio.on {
+  background-position: 0 0;
+}
