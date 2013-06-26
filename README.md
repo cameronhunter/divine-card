@@ -44,6 +44,7 @@
 * Add more sources to the video tag to increase browser support without falling back to flash (webm would be a great start)
 
 # TODO
+* Add test coverage for javascript code
 * Add more codec info to the sources tag, it helps the browser check compatibility
 * Is the poster image necessary?
 * Is the favicon necessary?
