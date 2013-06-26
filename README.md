@@ -38,9 +38,12 @@
 ```
 ![Divine card implementation](https://dl.dropboxusercontent.com/u/161487/divine-card/divine-waterfall.png)
 
-# TODO
-
+# Recommended Improvements
+* Host cards on a cookie-less domain to minimise request size
+* Host videos on a CDN rather than streaming from S3 (could use CloudFront)
 * Add more sources to the video tag to increase browser support without falling back to flash (webm would be a great start)
+
+# TODO
 * Add more codec info to the sources tag, it helps the browser check compatibility
 * Is the poster image necessary?
 * Is the favicon necessary?
