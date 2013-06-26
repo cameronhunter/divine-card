@@ -26,8 +26,7 @@ module.exports = function(grunt) {
     cssmin: {
       build: {
         files: {
-          '<%= temp %>/css/main.min.css': ['<%= temp %>/css/main.css'],
-          '<%= temp %>/css/ie.min.css': ['<%= source %>/css/ie.css']
+          '<%= temp %>/css/main.min.css': ['<%= temp %>/css/main.css', '<%= source %>/css/ie.css']
         }
       }
     },
@@ -66,8 +65,7 @@ module.exports = function(grunt) {
             ie: '<%= temp %>/js/html5-video-shim.min.js'
           },
           styles: {
-            main: '<%= temp %>/css/main.min.css',
-            ie: '<%= temp %>/css/ie.min.css'
+            main: '<%= temp %>/css/main.min.css'
           }
         }
       }
