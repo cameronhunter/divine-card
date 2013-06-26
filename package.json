@@ -8,6 +8,7 @@
     "grunt-html-build": "latest",
     "grunt-wrap": "latest",
     "grunt-data-uri": "latest",
+    "grunt-contrib-copy": "latest",
     "grunt-contrib-uglify": "~0.2.0",
     "grunt-contrib-cssmin": "~0.6.0",
     "grunt-contrib-clean": "~0.4.0",

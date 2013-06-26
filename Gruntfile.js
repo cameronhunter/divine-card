@@ -35,6 +35,7 @@ module.exports = function(grunt) {
       build: {
         files: {
           '<%= temp %>/js/main.min.js': [
+            '<%= source %>/js/embed-swf-ie.js',
             '<%= source %>/js/html5-video-player.js',
             '<%= source %>/js/divine-video-player.js',
             '<%= source %>/js/main.js',
@@ -69,6 +70,15 @@ module.exports = function(grunt) {
           }
         }
       }
+    },
+
+    copy: {
+      build: {
+        files: [
+          {expand: true, cwd: '<%= source %>', src: 'swf/*', dest: '<%= target %>', filter: 'isFile'},
+          {expand: true, cwd: '<%= source %>', src: 'img/volume.png', dest: '<%= target %>', filter: 'isFile'}
+        ]
+      }
     }
 
   });
@@ -80,6 +90,7 @@ module.exports = function(grunt) {
       'uglify:build',
       'wrap:build',
       'htmlbuild:build',
+      'copy:build',
       'clean:temp'
   ]);
 };
