@@ -1,6 +1,7 @@
 # Divine Improvements
 
 ## HTML/DOM
+* Removed the favicon and title tag
 * Removed unnecessary container elements
 * Moved script block to bottom of DOM (no longer blocking render)
 * Using relative protocols instead of hardcoded https for video and poster URLs
@@ -41,11 +42,10 @@
 # Recommended Improvements
 * Host cards on a cookie-less domain to minimise request size
 * Host videos on a CDN rather than streaming from S3 (could use CloudFront)
-* Add more sources to the video tag to increase browser support without falling back to flash (webm would be a great start)
+* Add more sources to the video tag to increase browser support without falling back to flash. WebM looks like the best option (see Mozilla's [supported media formats](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats#Browser_compatibility) page)
 
 # TODO
 * Add test coverage for javascript code
 * Browser testing
 * Add more codec info to the sources tag, it helps the browser check compatibility
 * Is the poster image necessary?
-* Is the favicon necessary?
