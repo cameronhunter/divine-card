@@ -1,6 +1,9 @@
 var StaticFallbackPlayer = (function() {
-  function player() {
-    document.getElementById('fallback').style.display = 'block';
+  function player(el, options) {
+    var fallback = document.getElementById('fallback');
+    fallback.style.width = options.size + 'px';
+    fallback.style.height = options.size + 'px';
+    fallback.style.display = 'block';
   }
 
   player.canPlay = function() {
