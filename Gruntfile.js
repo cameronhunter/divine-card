@@ -5,7 +5,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     source: 'src',
     target: 'build',
-    temp: 'tmp',
+    temp: '.tmp',
 
     clean: {
       build: ['<%= temp %>', '<%= target %>'],
@@ -26,7 +26,14 @@ module.exports = function(grunt) {
     cssmin: {
       build: {
         files: {
-          '<%= temp %>/css/main.min.css': ['<%= temp %>/css/main.css', '<%= source %>/css/ie.css']
+          '<%= temp %>/css/main.min.css': [
+            '<%= temp %>/css/main.css',
+            '<%= source %>/css/ie.css',
+            '<%= source %>/css/fallback.css'
+          ],
+          '<%= temp %>/css/show-fallback.min.css': [
+            '<%= source %>/css/show-fallback.css'
+          ]
         }
       }
     },
@@ -38,6 +45,7 @@ module.exports = function(grunt) {
             '<%= source %>/js/embed-swf-ie.js',
             '<%= source %>/js/html5-video-player.js',
             '<%= source %>/js/divine-video-player.js',
+            '<%= source %>/js/static-fallback-player.js',
             '<%= source %>/js/main.js',
             '<%= source %>/js/google-analytics.js'
           ],
@@ -66,7 +74,8 @@ module.exports = function(grunt) {
             "html5-video-shim": '<%= temp %>/js/html5-video-shim.min.js'
           },
           styles: {
-            "main": '<%= temp %>/css/main.min.css'
+            "main": '<%= temp %>/css/main.min.css',
+            "show-fallback":  '<%= temp %>/css/show-fallback.min.css'
           }
         }
       }
@@ -76,7 +85,8 @@ module.exports = function(grunt) {
       build: {
         files: [
           {expand: true, cwd: '<%= source %>', src: 'swf/*', dest: '<%= target %>', filter: 'isFile'},
-          {expand: true, cwd: '<%= source %>', src: 'img/volume.png', dest: '<%= target %>', filter: 'isFile'}
+          {expand: true, cwd: '<%= source %>', src: 'img/volume.png', dest: '<%= target %>', filter: 'isFile'},
+          {expand: true, cwd: '<%= source %>', src: 'img/logo.png', dest: '<%= target %>', filter: 'isFile'}
         ]
       }
     }
