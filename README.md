@@ -25,6 +25,9 @@
 ## Flash
 * Replaced [videojs](http://www.videojs.com/)'s flash implementation with [divine-player](https://github.com/cameronhunter/divine-player) (videojs was too feature-rich)
 
+## Misc
+* Added static fallback for browers without flash and/or javascript
+
 # Network Waterfalls
 
 ## Current Vine card implementation
@@ -43,6 +46,11 @@
 * Host cards on a cookie-less domain to minimise request size
 * Host videos on a CDN rather than streaming from S3 (could use CloudFront)
 * Add more sources to the video tag to increase browser support without falling back to flash. WebM looks like the best option (see Mozilla's [supported media formats](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats#Browser_compatibility) page)
+
+# Tested Browsers
+* Chrome
+* Firefox
+* IE8 - 10
 
 # TODO
 * Add test coverage for javascript code

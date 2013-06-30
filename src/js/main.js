@@ -4,8 +4,9 @@ var container = document.getElementById('container');
 var videoSize = Math.max(container.offsetWidth || 0, container.clientWidth || 0, container.scrollWidth || 0);
 var mobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
 
-var SupportedVideoPlayers = [];
 var AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer, StaticFallbackPlayer];
+
+var SupportedVideoPlayers = [];
 for (var i in AllVideoPlayers) if (AllVideoPlayers[i].canPlay(video)) {
   SupportedVideoPlayers.push(AllVideoPlayers[i]);
 }
