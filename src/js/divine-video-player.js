@@ -1,7 +1,7 @@
 var DivineVideoPlayer = (function() {
   function player(el, options) {
     // TODO: Handle volume clicks before flash loads
-    this.player = embed('/swf/divine-player.swf', el, {
+    this.swf = embed('/swf/divine-player.swf', el, {
       size: options.size,
       autoplay: el.hasAttribute('autoplay'),
       muted: el.hasAttribute('muted'),
@@ -11,30 +11,47 @@ var DivineVideoPlayer = (function() {
     });
   }
 
+  player.canPlay = function() {
+    try {
+      var full = window.ActiveXObject ?
+                  new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version") :
+                  navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin.description;
+
+      var match = /(\d+)[,.]\d+/.exec(full);
+      if (match.length > 1) {
+        var majorVersion = parseInt(match[1], 10);
+        return majorVersion >= 9;
+      }
+    } catch (e) {
+      /* Ignore */
+    }
+    return false;
+  };
+
   player.fn = player.prototype;
 
   player.fn.play = function() {
-    this.player.play();
+    this.swf.play();
   };
 
   player.fn.pause = function() {
-    this.player.pause();
+    this.swf.pause();
   };
 
   player.fn.paused = function() {
-    return this.player.paused();
+    return this.swf.paused();
   };
 
   player.fn.mute = function() {
-    this.player.mute();
+    this.swf.mute();
   };
 
   player.fn.unmute = function() {
-    this.player.unmute();
+    this.swf.unmute();
   };
 
   player.fn.muted = function() {
-    return this.player.muted();
+    return this.swf.muted();
   };
 
   return player;

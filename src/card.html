@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--[if lt IE 9]>
 <html class="ie">
 <![endif]-->
@@ -6,10 +6,12 @@
 <html>
 <!--<![endif]-->
 <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <!-- build:style inline main -->
   <link href="/css/main.css" rel="stylesheet" type="text/css" />
+  <link href="/css/fallback.css" rel="stylesheet" type="text/css" />
   <!-- /build -->
-
   <!-- build:script inline html5-video-shim -->
   <script src="/js/html5-video-shim.js"></script>
   <!-- /build -->
@@ -23,11 +25,20 @@
     </video>
   </div>
 
+  <a id="fallback" href="http://vine.co" target="_blank"></a>
+
   <!-- build:script inline main -->
   <script src="/js/embed-swf-ie.js"></script>
   <script src="/js/html5-video-player.js"></script>
   <script src="/js/divine-video-player.js"></script>
+  <script src="/js/static-fallback-player.js"></script>
   <script src="/js/main.js"></script>
   <!-- /build -->
+
+  <noscript>
+    <!-- build:style inline main -->
+    <link href="/css/show-fallback.css" rel="stylesheet" type="text/css" />
+    <!-- /build -->
+  </noscript>
 </body>
 </html>
