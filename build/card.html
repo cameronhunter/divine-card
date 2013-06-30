@@ -186,8 +186,9 @@
                             }, a
                         }(),
                         StaticFallbackPlayer = function() {
-                            function a() {
-                                document.getElementById("fallback").style.display = "block"
+                            function a(a, b) {
+                                var c = document.getElementById("fallback");
+                                c.style.width = b.size + "px", c.style.height = b.size + "px", c.style.display = "block"
                             }
 
                             function b() {}
@@ -196,22 +197,28 @@
                             }, a.fn = a.prototype, a.fn.play = b, a.fn.pause = b, a.fn.paused = b, a.fn.mute = b, a.fn.unmute = b, a.fn.muted = b, a
                         }(),
                         video = document.getElementById("video"),
-                        audio = document.getElementById("audio"),
                         container = document.getElementById("container"),
-                        videoSize = Math.max(container.offsetWidth || 0, container.clientWidth || 0, container.scrollWidth || 0),
-                        mobile = /iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()),
-                        AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer, StaticFallbackPlayer],
-                        SupportedVideoPlayers = [];
-                    for (var i in AllVideoPlayers) AllVideoPlayers[i].canPlay(video) && SupportedVideoPlayers.push(AllVideoPlayers[i]);
-                    var VideoPlayer = SupportedVideoPlayers[0],
-                        player = new VideoPlayer(video, {
+                        videoSize = Math.max(container.offsetWidth || 0, container.clientWidth || 0, container.scrollWidth || 0);
+                    try {
+                        var audio = document.getElementById("audio"),
+                            mobile = /iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()),
+                            AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer, StaticFallbackPlayer],
+                            SupportedVideoPlayers = [];
+                        for (var i in AllVideoPlayers) AllVideoPlayers[i].canPlay(video) && SupportedVideoPlayers.push(AllVideoPlayers[i]);
+                        var VideoPlayer = SupportedVideoPlayers[0],
+                            player = new VideoPlayer(video, {
+                                    size: videoSize
+                                });
+                        audio.onclick = function() {
+                            return player.muted() ? (player.unmute(), audio.className = "on") : (player.mute(), audio.className = ""), !1
+                        }, container.onclick = function() {
+                            return player.paused() ? player.play() : player.pause(), !1
+                        }
+                    } catch (e) {
+                        new StaticFallbackPlayer(video, {
                                 size: videoSize
-                            });
-                    audio.onclick = function() {
-                        return player.muted() ? (player.unmute(), audio.className = "on") : (player.mute(), audio.className = ""), !1
-                    }, container.onclick = function() {
-                        return player.paused() ? player.play() : player.pause(), !1
-                    };
+                            })
+                    }
                     var _gaq = _gaq || [];
                     _gaq.push([
                             ["_setAccount", "UA-XXXXXXXX-X"],
