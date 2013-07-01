@@ -48,8 +48,9 @@
 * Add more sources to the video tag to increase browser support without falling back to flash. WebM looks like the best option (see Mozilla's [supported media formats](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats#Browser_compatibility) page)
 
 # Tested Browsers
-* Chrome
-* Firefox
+* Chrome (27 & 29)
+* Firefox (21)
+* Safari (6.0.5)
 * IE6 – 10
 
 # TODO
