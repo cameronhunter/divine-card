@@ -6,7 +6,7 @@ try {
   var audio = document.getElementById('audio');
   var mobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
 
-  var AllVideoPlayers = [/*HTML5VideoPlayer,*/ DivineVideoPlayer];
+  var AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer];
 
   var SupportedVideoPlayers = [];
   for (var i in AllVideoPlayers) if (AllVideoPlayers[i].canPlay(video)) {
@@ -35,7 +35,6 @@ try {
     };
   });
 } catch(e) {
-  console.error(e);
   // Catch any errors and fallback
   var fallback = document.getElementById('fallback');
   new StaticFallback(fallback, {size: videoSize});
