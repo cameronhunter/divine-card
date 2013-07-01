@@ -1,245 +1,32 @@
 <!DOCTYPE html>
 <!--[if lt IE 9]>
-    <html class="ie">
-    <![endif]-->
-    <!--[if gte IE 9]>
-        <!-->
-        <html>
-        <!--<![endif]-->
-        
-        <head>
-            <meta charset="utf-8">
-            <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-            <style>
-                body {
-                    margin:0;
-                    padding:0;
-                    overflow:hidden;
-                    background-color:#000
-                }
-                video {
-                    display:block;
-                    width:100%;
-                    height:100%
-                }
-                #audio {
-                    display:block;
-                    position:absolute;
-                    top:20px;
-                    left:20px;
-                    width:40px;
-                    height:40px;
-                    border-radius:3px;
-                    background-size:70%;
-                    background-color:#1a1818;
-                    background-repeat:no-repeat;
-                    background-position:center center;
-                    background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAoCAMAAACGsik5AAAAIVBMVEUAAACbmpqNjIzi4uJiYGB4NCWEOCapqKiQOyjWUDH///8tXdA0AAAAAXRSTlMAQObYZgAAAJpJREFUeNq11sEKxCAMhOF021oz7//A60Wm4LKhP3ROHvxA1BjjVzbpEw9zaYQYESNiRIyIETEiRsBU6NjlrOjMbHFLyzzjkP6iHOk2PUdir9BUNhkqUJvKppUo+lQe1shTzStkZVMiK5sCWdlUyMqGILY8thFsy9nhomuELiwqDVSEqNzZw7Kq9x9LK94AgIJNjagXGjX4EnwBoXUgldx9e5wAAAAASUVORK5CYII=")
-                }
-                #audio.on {
-                    background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAoCAMAAACGsik5AAAAPFBMVEUAAAAIfmCNjIybmpoXKyXi4uJiYGAPWUYVNCwHiGYUPTINY0wKdVkFkW0CpHoLbFMQUD+pqKgArYD///+MbCPjAAAAAXRSTlMAQObYZgAAAN1JREFUeNqdlusOwyAIhdmlF1erTt7/XVfbNZCG4Hb41Rq/AgeFkmUP5vt1bak1k2Nv3uy6WDeLPmNDNTuMBeWdKg5jQBQblGaPYbKp1WEsiEKjFoPxIEotQINxoSKuTIbNoobT1TiwZWZRX1/ZR+YuJOVZDwGHDpT38jx1VkTsQFKeqB0XF5KQqn7JPiTZTyra4EPy9ZtKKv0CTW2jdtuDZONhcxfSkp2i/wXJMxoeLkRf8qAlh4oLHSPowCJXA7qE0HVHGgvUwpBmCbVlZABAowYZatD4xAc19EvwAYvRREXiBOKpAAAAAElFTkSuQmCC")
-                }
-                .ie #audio {
-                    background-position:-40px 0;
-                    background-image:url(/img/volume.png)
-                }
-                .ie #audio.on {
-                    background-position:0 0
-                }
-                #fallback {
-                    display:none;
-                    width:100%;
-                    height:100%;
-                    position:absolute;
-                    top:0;
-                    left:0;
-                    background:#00a47a url(/img/logo.png) center center no-repeat
-                }
-            </style>
-            <script type="text/javascript">
-                document.createElement("video"), document.createElement("source");
-            </script>
-        </head>
-        
-        <body>
-            <div id="container">
-                <video id="video" autoplay muted loop preload="auto" data-poster="//vines.s3.amazonaws.com/v/thumbs/40E91BA4-7826-4F2D-95BB-16F468921708-9136-000003C41720250C_1503b1e0db5.1.3.mp4.jpg?versionId=7fSRaOkU7eSyCoeG5LV7joani.mHEzHX">
-                    <source src="//vines.s3.amazonaws.com/v/videos/40E91BA4-7826-4F2D-95BB-16F468921708-9136-000003C41720250C_136b6976340.1.3.mp4?versionId=PGpFq4fbV.QsofdZyq8qrgyejpWmS67." type="video/mp4">
-                </video>
-            </div>
-            <a id="audio" href="#"></a>
-            <a id="fallback" href="http://vine.co" target="_blank"></a>
-            <script type="text/javascript">
-                (function() {
-                    var HTML5VideoPlayer = function() {
-                        function a(a, b, c) {
-                            c && c(this), this.el = a, a.hasAttribute("data-poster") && (this.el.poster = a.getAttribute("data-poster"))
-                        }
-                        return a.canPlay = function(a) {
-                            try {
-                                for (var b = [], c = a.getElementsByTagName("source"), d = 0, e = c.length; e > d; d++) {
-                                    var f = c[d].getAttribute("type"),
-                                        g = a.canPlayType(f);
-                                    g && b.push([f, g])
-                                }
-                                return b.length
-                            } catch (h) {}
-                            return !1
-                        }, a.fn = a.prototype, a.fn.play = function() {
-                            this.el.play()
-                        }, a.fn.pause = function() {
-                            this.el.pause()
-                        }, a.fn.paused = function() {
-                            return this.el.paused
-                        }, a.fn.mute = function() {
-                            this.el.muted = !0
-                        }, a.fn.unmute = function() {
-                            this.el.muted = !1
-                        }, a.fn.muted = function() {
-                            return this.el.muted
-                        }, a
-                    }(),
-                        DivineVideoPlayer = function(a) {
-                            function b(b, d, e) {
-                                var f = this;
-                                e && (a.onReady = function() {
-                                    e(f)
-                                }), this.swf = h("/swf/divine-player.swf", b, {
-                                        size: d.size,
-                                        autoplay: b.hasAttribute("autoplay"),
-                                        muted: b.hasAttribute("muted"),
-                                        loop: b.hasAttribute("loop"),
-                                        poster: b.hasAttribute("data-poster") ? c(b.getAttribute("data-poster")) : void 0,
-                                        video: c(b.getElementsByTagName("source")[0].src),
-                                        onReady: "onReady"
-                                    })
-                            }
+<html class="ie">
+<![endif]-->
+<!--[if gte IE 9]><!-->
+<html>
+<!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<style>body{margin:0;padding:0;overflow:hidden;background-color:#000}video{display:block;width:100%;height:100%}#audio{display:block;position:absolute;top:20px;left:20px;width:40px;height:40px;border-radius:3px;background-size:70%;background-color:#1a1818;background-repeat:no-repeat;background-position:center center;background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAoCAMAAACGsik5AAAAIVBMVEUAAACbmpqNjIzi4uJiYGB4NCWEOCapqKiQOyjWUDH///8tXdA0AAAAAXRSTlMAQObYZgAAAJpJREFUeNq11sEKxCAMhOF021oz7//A60Wm4LKhP3ROHvxA1BjjVzbpEw9zaYQYESNiRIyIETEiRsBU6NjlrOjMbHFLyzzjkP6iHOk2PUdir9BUNhkqUJvKppUo+lQe1shTzStkZVMiK5sCWdlUyMqGILY8thFsy9nhomuELiwqDVSEqNzZw7Kq9x9LK94AgIJNjagXGjX4EnwBoXUgldx9e5wAAAAASUVORK5CYII=")}#audio.on{background-image:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAoCAMAAACGsik5AAAAPFBMVEUAAAAIfmCNjIybmpoXKyXi4uJiYGAPWUYVNCwHiGYUPTINY0wKdVkFkW0CpHoLbFMQUD+pqKgArYD///+MbCPjAAAAAXRSTlMAQObYZgAAAN1JREFUeNqdlusOwyAIhdmlF1erTt7/XVfbNZCG4Hb41Rq/AgeFkmUP5vt1bak1k2Nv3uy6WDeLPmNDNTuMBeWdKg5jQBQblGaPYbKp1WEsiEKjFoPxIEotQINxoSKuTIbNoobT1TiwZWZRX1/ZR+YuJOVZDwGHDpT38jx1VkTsQFKeqB0XF5KQqn7JPiTZTyra4EPy9ZtKKv0CTW2jdtuDZONhcxfSkp2i/wXJMxoeLkRf8qAlh4oLHSPowCJXA7qE0HVHGgvUwpBmCbVlZABAowYZatD4xAc19EvwAYvRREXiBOKpAAAAAElFTkSuQmCC")}.ie #audio{background-position:-40px 0;background-image:url(/img/volume.png)}.ie #audio.on{background-position:0 0}#fallback{display:none;width:100%;height:100%;position:absolute;top:0;left:0;background:#00a47a url(/img/logo.png) center center no-repeat}</style>
+<script type="text/javascript">document.createElement("video"),document.createElement("source");</script>
+</head>
+<body>
 
-                            function c(a) {
-                                return 0 === (a || "").indexOf("//") ? document.location.protocol + a : a
-                            }
+  <div id="container">
+    <video id="video" autoplay muted loop preload="auto" data-poster="//vines.s3.amazonaws.com/v/thumbs/40E91BA4-7826-4F2D-95BB-16F468921708-9136-000003C41720250C_1503b1e0db5.1.3.mp4.jpg?versionId=7fSRaOkU7eSyCoeG5LV7joani.mHEzHX">
+      <source src="//vines.s3.amazonaws.com/v/videos/40E91BA4-7826-4F2D-95BB-16F468921708-9136-000003C41720250C_136b6976340.1.3.mp4?versionId=PGpFq4fbV.QsofdZyq8qrgyejpWmS67." type="video/mp4">
+    </video>
+  </div>
 
-                            function d(a) {
-                                return g(a, function(a, b) {
-                                    return a + '="' + b + '"'
-                                }, " ")
-                            }
+  <a id="audio" href="#"></a>
 
-                            function e(a) {
-                                return g(a, function(a, b) {
-                                    return "<param " + d({
-                                            name: a,
-                                            value: b
-                                        }) + " />"
-                                }, "\n")
-                            }
+  <a id="fallback" href="http://vine.co" target="_blank"></a>
 
-                            function f(a) {
-                                return g(a, function(a, b) {
-                                    return a + "=" + encodeURIComponent(b)
-                                }, "&")
-                            }
+<script type="text/javascript">(function() {function getSupportedPlayer(a){for(var b=0,c=a.length;c>b;b++)if(a[b].canPlay(video))return a[b]}var HTML5VideoPlayer=function(){function a(a,b,c){c&&c(this),this.el=a,a.hasAttribute("data-poster")&&(this.el.poster=a.getAttribute("data-poster"))}return a.canPlay=function(a){try{for(var b=[],c=a.getElementsByTagName("source"),d=0,e=c.length;e>d;d++){var f=c[d].getAttribute("type"),g=a.canPlayType(f);g&&b.push([f,g])}return b.length}catch(h){}return!1},a.fn=a.prototype,a.fn.play=function(){this.el.play()},a.fn.pause=function(){this.el.pause()},a.fn.paused=function(){return this.el.paused},a.fn.mute=function(){this.el.muted=!0},a.fn.unmute=function(){this.el.muted=!1},a.fn.muted=function(){return this.el.muted},a}(),DivineVideoPlayer=function(a){function b(b,d,e){var f=this;e&&(a.onReady=function(){e(f)}),this.swf=h("/swf/divine-player.swf",b,{size:d.size,autoplay:i(b,"autoplay"),muted:i(b,"muted"),loop:i(b,"loop"),poster:i(b,"data-poster")?c(b.getAttribute("data-poster")):void 0,video:c(b.getElementsByTagName("source")[0].src),onReady:"onReady"})}function c(a){return 0===(a||"").indexOf("//")?document.location.protocol+a:a}function d(a){return g(a,function(a,b){return a+'="'+b+'"'}," ")}function e(a){return g(a,function(a,b){return"<param "+d({name:a,value:b})+" />"},"\n")}function f(a){return g(a,function(a,b){return a+"="+encodeURIComponent(b)},"&")}function g(a,b,c){var d=[];for(var e in a)a.hasOwnProperty(e)&&d.push(b(e,a[e]));return d.join(c)}function h(a,b,c){var g=d({id:b.id,data:a,width:c.size,height:c.size,type:"application/x-shockwave-flash"}),h=e({movie:a,allowScriptAccess:"always",allowNetworking:"all",wmode:"opaque",quality:"high",bgcolor:"#000000",flashvars:f(c)});return b.outerHTML="<object "+g+">"+h+"</object>",document.getElementById(b.id)}function i(a,b){return void 0!==a.getAttribute(b)}return b.canPlay=function(){try{var a=window.ActiveXObject?new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version"):navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin.description,b=/(\d+)[,.]\d+/.exec(a);if(b.length>1){var c=parseInt(b[1],10);return c>=9}}catch(d){}return!1},b.fn=b.prototype,b.fn.play=function(){this.swf.divinePlay()},b.fn.pause=function(){this.swf.divinePause()},b.fn.paused=function(){return this.swf.divinePaused()},b.fn.mute=function(){this.swf.divineMute()},b.fn.unmute=function(){this.swf.divineUnmute()},b.fn.muted=function(){return this.swf.divineMuted()},b}(this),StaticFallback=function(){function a(a,b){a.style.width=b.size+"px",a.style.height=b.size+"px",a.style.display="block"}return a}(),container=document.getElementById("container"),videoSize=Math.max(container.offsetWidth||0,container.clientWidth||0,container.scrollWidth||0);try{var video=document.getElementById("video"),audio=document.getElementById("audio"),mobile=/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()),VideoPlayer=getSupportedPlayer([HTML5VideoPlayer,DivineVideoPlayer]);new VideoPlayer(video,{size:videoSize},function(a){audio.onclick=function(){return a.muted()?(a.unmute(),audio.className="on"):(a.mute(),audio.className=""),!1},container.onclick=function(){return a.paused()?a.play():a.pause(),!1}})}catch(e){var fallback=document.getElementById("fallback");new StaticFallback(fallback,{size:videoSize})}var _gaq=_gaq||[];_gaq.push([["_setAccount","UA-XXXXXXXX-X"],["_setDomainName","vine.co"],["_trackPageview"]]),function(){var a=document.createElement("script");a.type="text/javascript",a.async=!0,a.src=("https:"==document.location.protocol?"https://ssl":"http://www")+".google-analytics.com/ga.js";var b=document.getElementsByTagName("script")[0];b.parentNode.insertBefore(a,b)}();}());</script>
 
-                            function g(a, b, c) {
-                                var d = [];
-                                for (var e in a) a.hasOwnProperty(e) && d.push(b(e, a[e]));
-                                return d.join(c)
-                            }
-
-                            function h(a, b, c) {
-                                var g = d({
-                                        id: b.id,
-                                        data: a,
-                                        width: c.size,
-                                        height: c.size,
-                                        type: "application/x-shockwave-flash"
-                                    }),
-                                    h = e({
-                                            movie: a,
-                                            allowScriptAccess: "always",
-                                            allowNetworking: "all",
-                                            wmode: "opaque",
-                                            quality: "high",
-                                            bgcolor: "#000000",
-                                            flashvars: f(c)
-                                        });
-                                return b.outerHTML = "<object " + g + ">" + h + "</object>", document.getElementById(b.id)
-                            }
-                            return b.canPlay = function() {
-                                try {
-                                    var a = window.ActiveXObject ? new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version") : navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin.description,
-                                        b = /(\d+)[,.]\d+/.exec(a);
-                                    if (b.length > 1) {
-                                        var c = parseInt(b[1], 10);
-                                        return c >= 9
-                                    }
-                                } catch (d) {}
-                                return !1
-                            }, b.fn = b.prototype, b.fn.play = function() {
-                                this.swf.play()
-                            }, b.fn.pause = function() {
-                                this.swf.pause()
-                            }, b.fn.paused = function() {
-                                return this.swf.paused()
-                            }, b.fn.mute = function() {
-                                this.swf.mute()
-                            }, b.fn.unmute = function() {
-                                this.swf.unmute()
-                            }, b.fn.muted = function() {
-                                return this.swf.muted()
-                            }, b
-                        }(this),
-                        StaticFallback = function() {
-                            function a(a, b) {
-                                a.style.width = b.size + "px", a.style.height = b.size + "px", a.style.display = "block"
-                            }
-                            return a
-                        }(),
-                        container = document.getElementById("container"),
-                        videoSize = Math.max(container.offsetWidth || 0, container.clientWidth || 0, container.scrollWidth || 0);
-                    try {
-                        var video = document.getElementById("video"),
-                            audio = document.getElementById("audio"),
-                            mobile = /iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()),
-                            AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer],
-                            SupportedVideoPlayers = [];
-                        for (var i in AllVideoPlayers) AllVideoPlayers[i].canPlay(video) && SupportedVideoPlayers.push(AllVideoPlayers[i]);
-                        new SupportedVideoPlayers[0](video, {
-                                size: videoSize
-                            }, function(a) {
-                                audio.onclick = function() {
-                                    return a.muted() ? (a.unmute(), audio.className = "on") : (a.mute(), audio.className = ""), !1
-                                }, container.onclick = function() {
-                                    return a.paused() ? a.play() : a.pause(), !1
-                                }
-                            })
-                    } catch (e) {
-                        var fallback = document.getElementById("fallback");
-                        new StaticFallback(fallback, {
-                                size: videoSize
-                            })
-                    }
-                    var _gaq = _gaq || [];
-                    _gaq.push([
-                            ["_setAccount", "UA-XXXXXXXX-X"],
-                            ["_setDomainName", "vine.co"],
-                            ["_trackPageview"]
-                        ]),
-                    function() {
-                        var a = document.createElement("script");
-                        a.type = "text/javascript", a.async = !0, a.src = ("https:" == document.location.protocol ? "https://ssl" : "http://www") + ".google-analytics.com/ga.js";
-                        var b = document.getElementsByTagName("script")[0];
-                        b.parentNode.insertBefore(a, b)
-                    }();
-                }());
-            </script>
-            <noscript>
-                <style>
-                    #fallback {
-                        display:block
-                    }
-                </style>
-            </noscript>
-        </body>
-        
-        </html>
+  <noscript>
+<style>#fallback{display:block}</style>
+  </noscript>
+</body>
+</html>
