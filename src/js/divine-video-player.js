@@ -37,27 +37,27 @@ var DivineVideoPlayer = (function(global) {
   player.fn = player.prototype;
 
   player.fn.play = function() {
-    this.swf.play();
+    this.swf.divinePlay();
   };
 
   player.fn.pause = function() {
-    this.swf.pause();
+    this.swf.divinePause();
   };
 
   player.fn.paused = function() {
-    return this.swf.paused();
+    return this.swf.divinePaused();
   };
 
   player.fn.mute = function() {
-    this.swf.mute();
+    this.swf.divineMute();
   };
 
   player.fn.unmute = function() {
-    this.swf.unmute();
+    this.swf.divineUnmute();
   };
 
   player.fn.muted = function() {
-    return this.swf.muted();
+    return this.swf.divineMuted();
   };
 
   return player;
