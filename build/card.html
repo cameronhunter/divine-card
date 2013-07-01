@@ -72,8 +72,8 @@
             <script type="text/javascript">
                 (function() {
                     var HTML5VideoPlayer = function() {
-                        function a(a) {
-                            this.el = a, a.hasAttribute("data-poster") && (this.el.poster = a.getAttribute("data-poster"))
+                        function a(a, b, c) {
+                            c && c(this), this.el = a, a.hasAttribute("data-poster") && (this.el.poster = a.getAttribute("data-poster"))
                         }
                         return a.canPlay = function(a) {
                             try {
@@ -99,69 +99,73 @@
                             return this.el.muted
                         }, a
                     }(),
-                        DivineVideoPlayer = function() {
-                            function a(a, c) {
-                                this.swf = g("/swf/divine-player.swf", a, {
-                                        size: c.size,
-                                        autoplay: a.hasAttribute("autoplay"),
-                                        muted: a.hasAttribute("muted"),
-                                        loop: a.hasAttribute("loop"),
-                                        poster: a.hasAttribute("data-poster") ? b(a.getAttribute("data-poster")) : void 0,
-                                        video: b(a.getElementsByTagName("source")[0].src)
+                        DivineVideoPlayer = function(a) {
+                            function b(b, d, e) {
+                                var f = this;
+                                e && (a.onReady = function() {
+                                    e(f)
+                                }), this.swf = h("/swf/divine-player.swf", b, {
+                                        size: d.size,
+                                        autoplay: b.hasAttribute("autoplay"),
+                                        muted: b.hasAttribute("muted"),
+                                        loop: b.hasAttribute("loop"),
+                                        poster: b.hasAttribute("data-poster") ? c(b.getAttribute("data-poster")) : void 0,
+                                        video: c(b.getElementsByTagName("source")[0].src),
+                                        onReady: "onReady"
                                     })
                             }
 
-                            function b(a) {
+                            function c(a) {
                                 return 0 === (a || "").indexOf("//") ? document.location.protocol + a : a
                             }
 
-                            function c(a) {
-                                return f(a, function(a, b) {
+                            function d(a) {
+                                return g(a, function(a, b) {
                                     return a + '="' + b + '"'
                                 }, " ")
                             }
 
-                            function d(a) {
-                                return f(a, function(a, b) {
-                                    return "<param " + c({
+                            function e(a) {
+                                return g(a, function(a, b) {
+                                    return "<param " + d({
                                             name: a,
                                             value: b
                                         }) + " />"
                                 }, "\n")
                             }
 
-                            function e(a) {
-                                return f(a, function(a, b) {
+                            function f(a) {
+                                return g(a, function(a, b) {
                                     return a + "=" + encodeURIComponent(b)
                                 }, "&")
                             }
 
-                            function f(a, b, c) {
+                            function g(a, b, c) {
                                 var d = [];
                                 for (var e in a) a.hasOwnProperty(e) && d.push(b(e, a[e]));
                                 return d.join(c)
                             }
 
-                            function g(a, b, f) {
-                                var g = c({
+                            function h(a, b, c) {
+                                var g = d({
                                         id: b.id,
                                         data: a,
-                                        width: f.size,
-                                        height: f.size,
+                                        width: c.size,
+                                        height: c.size,
                                         type: "application/x-shockwave-flash"
                                     }),
-                                    h = d({
+                                    h = e({
                                             movie: a,
                                             allowScriptAccess: "always",
                                             allowNetworking: "all",
                                             wmode: "opaque",
                                             quality: "high",
                                             bgcolor: "#000000",
-                                            flashvars: e(f)
+                                            flashvars: f(c)
                                         });
-                                b.outerHTML = "<object " + g + ">" + h + "</object>"
+                                return b.outerHTML = "<object " + g + ">" + h + "</object>", document.getElementById(b.id)
                             }
-                            return a.canPlay = function() {
+                            return b.canPlay = function() {
                                 try {
                                     var a = window.ActiveXObject ? new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version") : navigator.mimeTypes["application/x-shockwave-flash"].enabledPlugin.description,
                                         b = /(\d+)[,.]\d+/.exec(a);
@@ -171,51 +175,47 @@
                                     }
                                 } catch (d) {}
                                 return !1
-                            }, a.fn = a.prototype, a.fn.play = function() {
+                            }, b.fn = b.prototype, b.fn.play = function() {
                                 this.swf.play()
-                            }, a.fn.pause = function() {
+                            }, b.fn.pause = function() {
                                 this.swf.pause()
-                            }, a.fn.paused = function() {
+                            }, b.fn.paused = function() {
                                 return this.swf.paused()
-                            }, a.fn.mute = function() {
+                            }, b.fn.mute = function() {
                                 this.swf.mute()
-                            }, a.fn.unmute = function() {
+                            }, b.fn.unmute = function() {
                                 this.swf.unmute()
-                            }, a.fn.muted = function() {
+                            }, b.fn.muted = function() {
                                 return this.swf.muted()
-                            }, a
-                        }(),
-                        StaticFallbackPlayer = function() {
+                            }, b
+                        }(this),
+                        StaticFallback = function() {
                             function a(a, b) {
-                                var c = document.getElementById("fallback");
-                                c.style.width = b.size + "px", c.style.height = b.size + "px", c.style.display = "block"
+                                a.style.width = b.size + "px", a.style.height = b.size + "px", a.style.display = "block"
                             }
-
-                            function b() {}
-                            return a.canPlay = function() {
-                                return !0
-                            }, a.fn = a.prototype, a.fn.play = b, a.fn.pause = b, a.fn.paused = b, a.fn.mute = b, a.fn.unmute = b, a.fn.muted = b, a
+                            return a
                         }(),
-                        video = document.getElementById("video"),
                         container = document.getElementById("container"),
                         videoSize = Math.max(container.offsetWidth || 0, container.clientWidth || 0, container.scrollWidth || 0);
                     try {
-                        var audio = document.getElementById("audio"),
+                        var video = document.getElementById("video"),
+                            audio = document.getElementById("audio"),
                             mobile = /iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()),
-                            AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer, StaticFallbackPlayer],
+                            AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer],
                             SupportedVideoPlayers = [];
                         for (var i in AllVideoPlayers) AllVideoPlayers[i].canPlay(video) && SupportedVideoPlayers.push(AllVideoPlayers[i]);
-                        var VideoPlayer = SupportedVideoPlayers[0],
-                            player = new VideoPlayer(video, {
-                                    size: videoSize
-                                });
-                        audio.onclick = function() {
-                            return player.muted() ? (player.unmute(), audio.className = "on") : (player.mute(), audio.className = ""), !1
-                        }, container.onclick = function() {
-                            return player.paused() ? player.play() : player.pause(), !1
-                        }
+                        new SupportedVideoPlayers[0](video, {
+                                size: videoSize
+                            }, function(a) {
+                                audio.onclick = function() {
+                                    return a.muted() ? (a.unmute(), audio.className = "on") : (a.mute(), audio.className = ""), !1
+                                }, container.onclick = function() {
+                                    return a.paused() ? a.play() : a.pause(), !1
+                                }
+                            })
                     } catch (e) {
-                        new StaticFallbackPlayer(video, {
+                        var fallback = document.getElementById("fallback");
+                        new StaticFallback(fallback, {
                                 size: videoSize
                             })
                     }
