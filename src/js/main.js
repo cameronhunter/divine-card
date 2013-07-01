@@ -9,7 +9,7 @@ try {
   var AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer];
 
   var SupportedVideoPlayers = [];
-  for (var i in AllVideoPlayers) if (AllVideoPlayers[i].canPlay(video)) {
+  for (var i=0, l=AllVideoPlayers.length; i<l; i++) if (AllVideoPlayers[i].canPlay(video)) {
     SupportedVideoPlayers.push(AllVideoPlayers[i]);
   }
 
