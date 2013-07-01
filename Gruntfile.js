@@ -44,7 +44,7 @@ module.exports = function(grunt) {
           '<%= temp %>/js/main.min.js': [
             '<%= source %>/js/html5-video-player.js',
             '<%= source %>/js/divine-video-player.js',
-            '<%= source %>/js/static-fallback-player.js',
+            '<%= source %>/js/static-fallback.js',
             '<%= source %>/js/main.js',
             '<%= source %>/js/google-analytics.js'
           ],

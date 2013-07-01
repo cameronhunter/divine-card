@@ -1,19 +1,19 @@
-var video = document.getElementById('video');
 var container = document.getElementById('container');
 var videoSize = Math.max(container['offsetWidth'] || 0, container['clientWidth'] || 0, container['scrollWidth'] || 0);
 
 try {
+  var video = document.getElementById('video');
   var audio = document.getElementById('audio');
   var mobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
 
-  var AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer];
+  var AllVideoPlayers = [/*HTML5VideoPlayer,*/ DivineVideoPlayer];
 
   var SupportedVideoPlayers = [];
   for (var i in AllVideoPlayers) if (AllVideoPlayers[i].canPlay(video)) {
     SupportedVideoPlayers.push(AllVideoPlayers[i]);
   }
 
-  var player = new SupportedVideoPlayers[0](video, {size: videoSize}, function() {
+  new SupportedVideoPlayers[0](video, {size: videoSize}, function(player) {
     audio.onclick = function() {
       if (player.muted()) {
         player.unmute();
@@ -35,6 +35,8 @@ try {
     };
   });
 } catch(e) {
+  console.error(e);
   // Catch any errors and fallback
-  new StaticFallbackPlayer(video, {size: videoSize});
+  var fallback = document.getElementById('fallback');
+  new StaticFallback(fallback, {size: videoSize});
 }

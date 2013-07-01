@@ -1,6 +1,6 @@
 var HTML5VideoPlayer = (function() {
   function player(el, options, onReady) {
-    onReady();
+    if (onReady) onReady(this);
     this.el = el;
     if (el.hasAttribute('data-poster')) {
       this.el.poster = el.getAttribute('data-poster');
