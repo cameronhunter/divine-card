@@ -67,7 +67,7 @@ module.exports = function(grunt) {
         src: '<%= source %>/card.html',
         dest: '<%= target %>',
         options: {
-          beautify: true,
+          beautify: false,
           scripts: {
             "main": '<%= temp %>/js/main.min.js',
             "html5-video-shim": '<%= temp %>/js/html5-video-shim.min.js'
