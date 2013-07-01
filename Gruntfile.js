@@ -42,7 +42,6 @@ module.exports = function(grunt) {
       build: {
         files: {
           '<%= temp %>/js/main.min.js': [
-            '<%= source %>/js/embed-swf-ie.js',
             '<%= source %>/js/html5-video-player.js',
             '<%= source %>/js/divine-video-player.js',
             '<%= source %>/js/static-fallback-player.js',

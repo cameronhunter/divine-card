@@ -1,20 +1,23 @@
-var DivineVideoPlayer = (function() {
-  function player(el, options) {
-    // TODO: Handle volume clicks before flash loads
+(function(global, variable) {
+  function player(el, options, onReady) {
+
+    global[variable].onReady = onReady;
+
     this.swf = embed('/swf/divine-player.swf', el, {
       size: options.size,
       autoplay: el.hasAttribute('autoplay'),
       muted: el.hasAttribute('muted'),
       loop: el.hasAttribute('loop'),
       poster: el.hasAttribute('data-poster') ? absolute(el.getAttribute('data-poster')) : undefined,
-      video: absolute(el.getElementsByTagName('source')[0].src) // TODO: Select the mp4 instead of just the first source
+      video: absolute(el.getElementsByTagName('source')[0].src), // TODO: Select the mp4 instead of just the first source
+      onReady: variable + '.onReady'
     });
   }
 
   player.canPlay = function() {
     try {
       var full = window.ActiveXObject ?
-                  new ActiveXObject("ShockwaveFlash.ShockwaveFlash").GetVariable("$version") :
+                  new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version') :
                   navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin.description;
 
       var match = /(\d+)[,.]\d+/.exec(full);
@@ -54,9 +57,57 @@ var DivineVideoPlayer = (function() {
     return this.swf.muted();
   };
 
-  return player;
+  global[variable] = player;
 
   function absolute(url) {
     return (url || '').indexOf('//') === 0 ? document.location.protocol + url : url;
   }
-}());
+
+  function attrs(options) {
+    return transform(options, function(k, v) {
+      return k + '="' + v + '"';
+    }, ' ');
+  }
+
+  function params(options) {
+    return transform(options, function(k, v) {
+      return '<param ' + attrs({name: k, value: v}) + ' />';
+    }, '\n');
+  }
+
+  function flashvars(options) {
+    return transform(options, function(k, v) {
+      return k + '=' + encodeURIComponent(v);
+    }, '&');
+  }
+
+  function transform(options, fn, joinWith) {
+    var ret = [];
+    for (var key in options) if (options.hasOwnProperty(key)) {
+      ret.push(fn(key, options[key]));
+    }
+    return ret.join(joinWith);
+  }
+
+ function embed(swf, el, options) {
+    var attributes = attrs({
+      id: el.id,
+      data: swf,
+      width: options.size,
+      height: options.size,
+      type: 'application/x-shockwave-flash'
+    });
+
+    var parameters = params({
+      movie: swf,
+      allowScriptAccess: 'always',
+      allowNetworking: 'all',
+      wmode: 'opaque',
+      quality: 'high',
+      bgcolor: '#000000',
+      flashvars: flashvars(options)
+    });
+
+    el.outerHTML = '<object ' + attributes + '>' + parameters + '</object>';
+  }
+}(this, 'DivineVideoPlayer'));

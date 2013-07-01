@@ -50,10 +50,9 @@
 # Tested Browsers
 * Chrome
 * Firefox
-* IE8 - 10
+* IE6 – 10
 
 # TODO
 * Add test coverage for javascript code
-* Browser testing
 * Add more codec info to the sources tag, it helps the browser check compatibility
 * Is the poster image necessary?

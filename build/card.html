@@ -71,84 +71,37 @@
             <a id="fallback" href="http://vine.co" target="_blank"></a>
             <script type="text/javascript">
                 (function() {
-                    var embed = function() {
+                    var HTML5VideoPlayer = function() {
                         function a(a) {
-                            return d(a, function(a, b) {
-                                return a + '="' + b + '"'
-                            }, " ")
+                            this.el = a, a.hasAttribute("data-poster") && (this.el.poster = a.getAttribute("data-poster"))
                         }
-
-                        function b(b) {
-                            return d(b, function(b, c) {
-                                return "<param " + a({
-                                        name: b,
-                                        value: c
-                                    }) + " />"
-                            }, "\n")
-                        }
-
-                        function c(a) {
-                            return d(a, function(a, b) {
-                                return a + "=" + encodeURIComponent(b)
-                            }, "&")
-                        }
-
-                        function d(a, b, c) {
-                            var d = [];
-                            for (var e in a) a.hasOwnProperty(e) && d.push(b(e, a[e]));
-                            return d.join(c)
-                        }
-                        return function(d, e, f) {
-                            var g = a({
-                                    id: e.id,
-                                    data: d,
-                                    width: f.size,
-                                    height: f.size,
-                                    type: "application/x-shockwave-flash"
-                                }),
-                                h = b({
-                                        movie: d,
-                                        allowScriptAccess: "always",
-                                        allowNetworking: "all",
-                                        wmode: "opaque",
-                                        quality: "high",
-                                        bgcolor: "#000000",
-                                        flashvars: c(f)
-                                    });
-                            return e.outerHTML = "<object " + g + ">" + h + "</object>", document.getElementById(e.id)
-                        }
+                        return a.canPlay = function(a) {
+                            try {
+                                for (var b = [], c = a.getElementsByTagName("source"), d = 0, e = c.length; e > d; d++) {
+                                    var f = c[d].getAttribute("type"),
+                                        g = a.canPlayType(f);
+                                    g && b.push([f, g])
+                                }
+                                return b.length
+                            } catch (h) {}
+                            return !1
+                        }, a.fn = a.prototype, a.fn.play = function() {
+                            this.el.play()
+                        }, a.fn.pause = function() {
+                            this.el.pause()
+                        }, a.fn.paused = function() {
+                            return this.el.paused
+                        }, a.fn.mute = function() {
+                            this.el.muted = !0
+                        }, a.fn.unmute = function() {
+                            this.el.muted = !1
+                        }, a.fn.muted = function() {
+                            return this.el.muted
+                        }, a
                     }(),
-                        HTML5VideoPlayer = function() {
-                            function a(a) {
-                                this.el = a, a.hasAttribute("data-poster") && (this.el.poster = a.getAttribute("data-poster"))
-                            }
-                            return a.canPlay = function(a) {
-                                try {
-                                    for (var b = [], c = a.getElementsByTagName("source"), d = 0, e = c.length; e > d; d++) {
-                                        var f = c[d].getAttribute("type"),
-                                            g = a.canPlayType(f);
-                                        g && b.push([f, g])
-                                    }
-                                    return b.length
-                                } catch (h) {}
-                                return !1
-                            }, a.fn = a.prototype, a.fn.play = function() {
-                                this.el.play()
-                            }, a.fn.pause = function() {
-                                this.el.pause()
-                            }, a.fn.paused = function() {
-                                return this.el.paused
-                            }, a.fn.mute = function() {
-                                this.el.muted = !0
-                            }, a.fn.unmute = function() {
-                                this.el.muted = !1
-                            }, a.fn.muted = function() {
-                                return this.el.muted
-                            }, a
-                        }(),
                         DivineVideoPlayer = function() {
                             function a(a, c) {
-                                this.swf = embed("/swf/divine-player.swf", a, {
+                                this.swf = g("/swf/divine-player.swf", a, {
                                         size: c.size,
                                         autoplay: a.hasAttribute("autoplay"),
                                         muted: a.hasAttribute("muted"),
@@ -160,6 +113,53 @@
 
                             function b(a) {
                                 return 0 === (a || "").indexOf("//") ? document.location.protocol + a : a
+                            }
+
+                            function c(a) {
+                                return f(a, function(a, b) {
+                                    return a + '="' + b + '"'
+                                }, " ")
+                            }
+
+                            function d(a) {
+                                return f(a, function(a, b) {
+                                    return "<param " + c({
+                                            name: a,
+                                            value: b
+                                        }) + " />"
+                                }, "\n")
+                            }
+
+                            function e(a) {
+                                return f(a, function(a, b) {
+                                    return a + "=" + encodeURIComponent(b)
+                                }, "&")
+                            }
+
+                            function f(a, b, c) {
+                                var d = [];
+                                for (var e in a) a.hasOwnProperty(e) && d.push(b(e, a[e]));
+                                return d.join(c)
+                            }
+
+                            function g(a, b, f) {
+                                var g = c({
+                                        id: b.id,
+                                        data: a,
+                                        width: f.size,
+                                        height: f.size,
+                                        type: "application/x-shockwave-flash"
+                                    }),
+                                    h = d({
+                                            movie: a,
+                                            allowScriptAccess: "always",
+                                            allowNetworking: "all",
+                                            wmode: "opaque",
+                                            quality: "high",
+                                            bgcolor: "#000000",
+                                            flashvars: e(f)
+                                        });
+                                b.outerHTML = "<object " + g + ">" + h + "</object>"
                             }
                             return a.canPlay = function() {
                                 try {
