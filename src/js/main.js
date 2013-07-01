@@ -6,14 +6,9 @@ try {
   var audio = document.getElementById('audio');
   var mobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));
 
-  var AllVideoPlayers = [HTML5VideoPlayer, DivineVideoPlayer];
+  var VideoPlayer = getSupportedPlayer([HTML5VideoPlayer, DivineVideoPlayer]);
 
-  var SupportedVideoPlayers = [];
-  for (var i=0, l=AllVideoPlayers.length; i<l; i++) if (AllVideoPlayers[i].canPlay(video)) {
-    SupportedVideoPlayers.push(AllVideoPlayers[i]);
-  }
-
-  new SupportedVideoPlayers[0](video, {size: videoSize}, function(player) {
+  new VideoPlayer(video, {size: videoSize}, function(player) {
     audio.onclick = function() {
       if (player.muted()) {
         player.unmute();
@@ -34,6 +29,12 @@ try {
       return false;
     };
   });
+
+  function getSupportedPlayer(players) {
+    for (var i=0, l=players.length; i<l; i++) {
+      if (players[i].canPlay(video)) return players[i];
+    }
+  }
 } catch(e) {
   // Catch any errors and fallback
   var fallback = document.getElementById('fallback');
