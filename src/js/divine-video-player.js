@@ -8,10 +8,10 @@ var DivineVideoPlayer = (function(global) {
 
     this.swf = embed('/swf/divine-player.swf', el, {
       size: options.size,
-      autoplay: el.hasAttribute('autoplay'),
-      muted: el.hasAttribute('muted'),
-      loop: el.hasAttribute('loop'),
-      poster: el.hasAttribute('data-poster') ? absolute(el.getAttribute('data-poster')) : undefined,
+      autoplay: hasAttribute(el, 'autoplay'),
+      muted: hasAttribute(el, 'muted'),
+      loop: hasAttribute(el, 'loop'),
+      poster: hasAttribute(el, 'data-poster') ? absolute(el.getAttribute('data-poster')) : undefined,
       video: absolute(el.getElementsByTagName('source')[0].src), // TODO: Select the mp4 instead of just the first source
       onReady: 'onReady'
     });
@@ -114,5 +114,10 @@ var DivineVideoPlayer = (function(global) {
     el.outerHTML = '<object ' + attributes + '>' + parameters + '</object>';
 
     return document.getElementById(el.id);
+  }
+
+  // IE7 and below doesn't support hasAttribute
+  function hasAttribute(el, attribute) {
+    return el.getAttribute(attribute) !== undefined;
   }
 }(this));
