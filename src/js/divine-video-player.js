@@ -1,4 +1,6 @@
 var DivineVideoPlayer = (function(global) {
+
+  // TODO: Select the mp4 instead of just the first source
   function player(el, options, onReady) {
 
     var self = this;
@@ -6,31 +8,26 @@ var DivineVideoPlayer = (function(global) {
       global['onReady'] = function() { onReady(self); };
     }
 
-    this.swf = embed('/swf/divine-player.swf', el, {
+    this.swf = embed(options.swf, el, {
       size: options.size,
-      autoplay: hasAttribute(el, 'autoplay'),
-      muted: hasAttribute(el, 'muted'),
-      loop: hasAttribute(el, 'loop'),
-      poster: hasAttribute(el, 'data-poster') ? absolute(el.getAttribute('data-poster')) : undefined,
-      video: absolute(el.getElementsByTagName('source')[0].src), // TODO: Select the mp4 instead of just the first source
+      autoplay: override(hasAttribute(el, 'autoplay'), options.autoplay),
+      muted: override(hasAttribute(el, 'muted'), options.muted),
+      loop: override(hasAttribute(el, 'loop'), options.loop),
+      poster: hasAttribute(el, 'poster') ? absolute(el.getAttribute('poster')) : undefined,
+      video: absolute(el.getElementsByTagName('source')[0].src),
       onReady: 'onReady'
     });
   }
 
   player.canPlay = function() {
     try {
-      var full = window.ActiveXObject ?
-                  new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version') :
-                  navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin.description;
-
-      var match = /(\d+)[,.]\d+/.exec(full);
-      if (match.length > 1) {
-        var majorVersion = parseInt(match[1], 10);
-        return majorVersion >= 9;
-      }
-    } catch (e) {
-      /* Ignore */
-    }
+      var flash = window.ActiveXObject ?
+                    new ActiveXObject('ShockwaveFlash.ShockwaveFlash').GetVariable('$version') :
+                    navigator.mimeTypes['application/x-shockwave-flash'].enabledPlugin.description;
+      var match = /(\d+)[,.]\d+/.exec(flash);
+      var majorVersion = parseInt(match[1], 10);
+      return majorVersion >= 9;
+    } catch (e) {/* Ignore */}
     return false;
   };
 
@@ -119,5 +116,9 @@ var DivineVideoPlayer = (function(global) {
   // IE7 and below doesn't support hasAttribute
   function hasAttribute(el, attribute) {
     return el.getAttribute(attribute) !== undefined;
+  }
+
+  function override(original, custom) {
+    return custom == null ? original : custom;
   }
 }(this));

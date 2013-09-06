@@ -1,22 +1,23 @@
 var HTML5VideoPlayer = (function() {
   function player(el, options, onReady) {
-    if (onReady) onReady(this);
     this.el = el;
-    if (el.hasAttribute('data-poster')) {
-      this.el.poster = el.getAttribute('data-poster');
-    }
+
+    if (options.autoplay != null) this.el.autoplay = options.autoplay;
+    if (options.controls != null) this.el.controls = options.controls;
+    if (options.loop != null) this.el.loop = options.loop;
+    if (options.muted != null) this.el.muted = options.muted;
+
+    if (onReady) onReady(this);
   }
 
   player.canPlay = function(el) {
     try {
-      var support = [];
       var sources = el.getElementsByTagName('source');
       for (var i=0, l = sources.length; i<l; i++) {
         var type = sources[i].getAttribute('type');
         var canPlayType = el.canPlayType(type);
-        if (canPlayType) support.push([type, canPlayType]);
+        if (canPlayType) return true;
       }
-      return support.length;
     } catch(e) {/* IGNORE */}
     return false;
   };
