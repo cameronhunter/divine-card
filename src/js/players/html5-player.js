@@ -7,6 +7,8 @@ var HTML5VideoPlayer = (function() {
     if (options.loop != null) this.el.loop = options.loop;
     if (options.muted != null) this.el.muted = options.muted;
 
+    workarounds(this.el);
+
     if (onReady) onReady(this);
   }
 
@@ -49,4 +51,29 @@ var HTML5VideoPlayer = (function() {
   };
 
   return player;
+
+  function workarounds(el) {
+    /**
+     * The iPad has a strange glitch where it won't show the play button if the
+     * controls are off. It also won't autoplay in any-way until the user
+     * presses the button.
+     */
+    if (/ipad/i.test(navigator.userAgent)) {
+      el.controls = true;
+      el.addEventListener('play', function() {
+        el.controls = false;
+      }, false);
+    }
+
+    /**
+     * There is a bug on android that causes the loop attribute to kill all
+     * events from the video player. So we do it manually.
+     */
+    if (/android/i.test(navigator.userAgent)) {
+      el.loop = false;
+      el.addEventListener('ended', function() {
+        el.play();
+      }, false);
+    }
+  }
 }());
