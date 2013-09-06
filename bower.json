@@ -1,0 +1,15 @@
+{
+  "name": "divine-card",
+  "description": "Improving Vine's card implementation using divine-player",
+  "version": "0.1.0",
+  "authors": ["Cameron Hunter <hello@cameronhunter.co.uk>"],
+  "dependencies": {
+    "divine-player": "latest"
+  },
+  "ignore": [
+    ".gitignore",
+    "package.json",
+    "Gruntfile.js",
+    ".bowerrc"
+  ]
+}

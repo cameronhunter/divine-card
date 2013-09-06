@@ -6,6 +6,8 @@ module.exports = function(grunt) {
     source: 'src',
     target: 'build',
     temp: '.tmp',
+    bowerComponents: 'src/bower_components',
+    divinePlayer: '<%= bowerComponents %>/divine-player/release',
 
     clean: {
       build: ['<%= temp %>', '<%= target %>'],
@@ -42,14 +44,13 @@ module.exports = function(grunt) {
       build: {
         files: {
           '<%= temp %>/js/main.min.js': [
-            '<%= source %>/js/players/html5-player.js',
-            '<%= source %>/js/players/flash-player.js',
+            '<%= divinePlayer %>/js/divine-player.min.js',
             '<%= source %>/js/static-fallback.js',
             '<%= source %>/js/main.js',
             '<%= source %>/js/google-analytics.js'
           ],
           '<%= temp %>/js/html5-video-shim.min.js': [
-            '<%= source %>/js/html5-video-shim.js'
+            '<%= divinePlayer %>/js/html5-video-shim.min.js'
           ]
         }
       }
@@ -58,7 +59,10 @@ module.exports = function(grunt) {
     wrap: {
       build: {
         src: '<%= temp %>/js/main.min.js',
-        wrapper: ['(function() {', '}());']
+        dest: '<%= temp %>/js/main.min.js',
+        options: {
+          wrapper: ['(function() {', '}());']
+        }
       }
     },
 
@@ -83,7 +87,7 @@ module.exports = function(grunt) {
     copy: {
       build: {
         files: [
-          {expand: true, cwd: '<%= source %>', src: 'swf/*', dest: '<%= target %>', filter: 'isFile'},
+          {expand: true, cwd: '<%= divinePlayer %>', src: 'swf/*', dest: '<%= target %>', filter: 'isFile'},
           {expand: true, cwd: '<%= source %>', src: 'img/volume.png', dest: '<%= target %>', filter: 'isFile'},
           {expand: true, cwd: '<%= source %>', src: 'img/logo.png', dest: '<%= target %>', filter: 'isFile'}
         ]
