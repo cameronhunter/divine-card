@@ -1,4 +1,4 @@
-var DivineVideoPlayer = (function(global) {
+var FlashPlayer = (function(global) {
 
   // TODO: Select the mp4 instead of just the first source
   function player(el, options, onReady) {

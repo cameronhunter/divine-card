@@ -1,4 +1,4 @@
-var HTML5VideoPlayer = (function() {
+var HTML5Player = (function() {
   function player(el, options, onReady) {
     this.el = el;
 
